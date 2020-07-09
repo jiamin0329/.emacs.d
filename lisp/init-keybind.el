@@ -9,7 +9,7 @@
   (find-file "~/.emacs.d/init.el"))
 (global-set-key (kbd "<f1>") 'open-init-file)
 ;; set F2 to open shell mode
-(global-set-key (kbd "<f2>") 'shell)
+(global-set-key (kbd "<f2>") 'vterm)
 
 ;; create a new line
 (global-set-key (kbd "RET") 'newline-and-indent)
