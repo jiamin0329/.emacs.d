@@ -17,12 +17,28 @@
   :config (load-theme 'doom-dracula t))
 
 ;; modeline style
-(use-package doom-modeline
+;;(use-package doom-modeline
+;;  :ensure t
+;;  :init (doom-modeline-mode 1)
+;;  :config
+;;  (setq doom-modeline-height 5)
+;;  (setq mode-line-percent-position t))
+
+(use-package powerline
   :ensure t
-  :init (doom-modeline-mode 1)
+  :init
+  (powerline-default-theme)
   :config
-  (setq doom-modeline-height 5)
-  (setq mode-line-percent-position t))
+  (custom-set-faces
+   '(mode-line ((t (:foreground "green" :background "purple" :box nil))))
+   ;;'(mode-line-inactive ((t (:foreground "dark green"   :background "blue"   :box nil))))
+   '(powerline-active0 ((t (:inherit mode-line :background "purple3"))))
+   '(powerline-active1 ((t (:inherit mode-line :background "purple2"))))
+   '(powerline-active2 ((t (:inherit mode-line :background "purple1"))))
+   ;;'(powerline-inactive0 ((t (:inherit mode-line-inactive :background "blue3"))))
+   ;;'(powerline-inactive1 ((t (:inherit mode-line-inactive :background "blue2"))))
+   ;;'(powerline-inactive2 ((t (:inherit mode-line-inactive :background "blue1"))))
+  ))
 
 ;; info color package
 (use-package info-colors

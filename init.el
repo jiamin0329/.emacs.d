@@ -9,7 +9,7 @@
 ;; set emacs title
 (setq frame-title-format "jiamin@%b")
 ;; set default directory
-(setq default-directory "C:/Users/o0tpuw")
+(setq default-directory "~/workdir")
 ;; set auto-save directory
 (setq auto-save-list-file-prefix "~/.emacs.d/var/auto-save-list/.saves-")
 ;; hide scroll bar
@@ -127,10 +127,5 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (elpy clang-format company-c-headers helm-gtags helm-projectile helm-swoop helm cmake-ide htmlize counsel-projectile projectile swiper smartparens info-colors doom-modeline doom-themes ace-window use-package))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(aw-leading-char-face ((t (:inherit ace-jump-face-foreground :height 6.0 :foreground "magenta")))))
+    (elpy clang-format company-c-headers helm-gtags helm-projectile helm-swoop helm cmake-ide htmlize counsel-projectile projectile swiper smartparens info-colors doom-modeline doom-themes ace-window use-package)))
+ '(powerline-gui-use-vcs-glyph t))
