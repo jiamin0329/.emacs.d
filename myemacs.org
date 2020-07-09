@@ -1,0 +1,7 @@
+* My Emacs
+
+** Key Bindings
+
+| key      | function                        |
+|----------+-------------------------------- |
+| F1       | open init.el in .emacs.d folder |
