@@ -29,7 +29,7 @@
 ;; activate auto revert mode
 (global-auto-revert-mode 1)
 ;; do Not remove startup message
-(setq inhibit-startup-message nil)
+(setq inhibit-startup-message t)
 ;; highlight current line
 (global-hl-line-mode 1)
 ;; turn on line number and column number
@@ -125,7 +125,11 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("2a749c20af891c16571527d07976bbcf2bf31819fa7d322942b73386019f4d58" "9efb2d10bfb38fe7cd4586afb3e644d082cbcdb7435f3d1e8dd9413cbe5e61fc" default)))
  '(package-selected-packages
    (quote
     (elpy clang-format company-c-headers helm-gtags helm-projectile helm-swoop helm cmake-ide htmlize counsel-projectile projectile swiper smartparens info-colors doom-modeline doom-themes ace-window use-package)))
+ '(powerline-default-separator (quote curve))
  '(powerline-gui-use-vcs-glyph t))
