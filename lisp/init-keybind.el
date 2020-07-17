@@ -7,7 +7,12 @@
 (defun open-init-file ()
   (interactive)
   (find-file "~/.emacs.d/init.el"))
+(defun load-init-file ()
+  (interactive)
+  (load-file "~/.emacs.d/init.el"))
+
 (global-set-key (kbd "<f1>") 'open-init-file)
+(global-set-key (kbd "<f12>") 'load-init-file)
 ;; set F2 to open shell mode
 (global-set-key (kbd "<f2>") 'vterm)
 

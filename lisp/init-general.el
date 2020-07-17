@@ -1,16 +1,6 @@
 ;;========================================================================
 ;; General packages
 ;;========================================================================
-;; ace window package
-(use-package ace-window
-  :ensure t
-  :init
-  (progn
-    (global-set-key [remap other-window] 'ace-window)
-    (custom-set-faces
-     '(aw-leading-char-face
-       ((t (:inherit ace-jump-face-foreground :height 6.0 :foreground "magenta")))))))
-
 ;; theme
 (use-package doom-themes
   :ensure t
@@ -42,6 +32,16 @@
    ;;'(powerline-inactive2 ((t (:inherit mode-line-inactive :background "blue1"))))
    ))
 
+;; ace window package
+(use-package ace-window
+  :ensure t
+  :init
+  (progn
+    (global-set-key [remap other-window] 'ace-window)
+    (custom-set-faces
+     '(aw-leading-char-face
+       ((t (:inherit ace-jump-face-foreground :height 6.0 :foreground "magenta")))))))
+
 ;; info color package
 (use-package info-colors
   :ensure t
@@ -58,9 +58,7 @@
   :bind
   (("C-s" . swiper)
    ("C-r" . swiper)
-   ("C-c C-r" . ivy-resume)
-   ("M-x" . counsel-M-x)
-   ("C-x C-f" . counsel-find-file))
+   ("C-c C-r" . ivy-resume))
   :config
   (progn
     (ivy-mode 1)
@@ -76,9 +74,9 @@
   (setq projectile-enable-caching t))
 
 ;; use consel projectile mode
-(use-package counsel-projectile
-  :ensure t
-  :init
-  (counsel-projectile-mode))
+;;(use-package counsel-projectile
+;;  :ensure t
+;;  :init
+;;  (counsel-projectile-mode))
 
 (provide 'init-general)

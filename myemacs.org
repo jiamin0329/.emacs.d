@@ -1,7 +1,70 @@
 * My Emacs
 
+** Basic Requirement 
+   - [ ]General 
+     - [ ]theme
+       - [X]gui mode
+       - [ ]terminal mode
+     - [X]modeline 
+   - [ ]C/C++ support
+     - [ ]auto-complete
+     - [X]goto header file
+     - [X]goto definition
+     - [X]goto declaration
+     - [X]clang-format support
+     - [ ]cmake support
+   - [ ]Python support
+   - [ ]gdb support
+   - [ ]project management
+   - [ ]latex support
+   - [ ]org mode
+     - [ ]indent
+     - [ ]preview
+     - [X]plantuml
+     - [ ]fancy highlight of code blocks
+
+*** General
+**** theme 
+     GUI mode - using doom-themes
+     Terminal mode - not decided, font/color/background should be repicked
+**** mode line
+     Powerline package is used, see lisp/init-general.el.
+**** ace-window
+     ace-window is used to switch from window to window.
+**** swiper
+     use swiper to do the searching
+
+
+
+
+*** C/C++ support
+***** Semantic 
+      Now Semantic can search system include path and current path, but it still cannot access all includes in local project. So sometimes auto-complete cannot work. 
+***** helm-gtags
+      gtags works well. I can enjoy code navigation.
+
+*** Projectile
+    Here projectile is integrated in helm. 
+
+    Keybindings:(with C-c p prefix)
+    C-c p f - helm-projectile-find-file-dwin
+    
 ** Key Bindings
 
-| key      | function                        |
-|----------+-------------------------------- |
-| F1       | open init.el in .emacs.d folder |
+| key | function                        |
+|-----+---------------------------------|
+| F1  | open init.el in .emacs.d folder |
+| F2  | open vterm in other window      |
+| F3  |                                 |
+| F4  |                                 |
+| F5  |                                 |
+| F6  |                                 |
+| F7  |                                 |
+| F8  |                                 |
+| F9  |                                 |
+| F10 |                                 |
+| F11 |                                 |
+| F12 | load init.el                    |
+
+
+

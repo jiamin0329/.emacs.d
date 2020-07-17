@@ -9,17 +9,12 @@
 (org-babel-do-load-languages 'org-babel-load-languages '((plantuml . t)))
 (setq org-plantuml-jar-path (expand-file-name "~/.emacs.d/plantuml.jar"))
 
-;;;; use minted to highlight code in latex
-;;(require 'ox-latex)
-;;(add-to-list 'org-latex-packages-alist '("" "minted"))
-;;(setq org-latex-listings 'minted)
-;;
-;;;; set latex to xelatex
-;;(setq org-latex-pdf-process '("xelatex -shell-escape -interaction nonstopmode %f"
-;;                              "xelatex -shell-escape -interaction nonstopmode %f"))
-
 ;; htmlize package for html output
 (use-package htmlize
   :ensure t)
+
+;; do NOT ask for babel evalutae
+(setq org-confirm-babel-evaluate nil)
+(setq org-indent-mode t)
 
 (provide 'init-orgmode)

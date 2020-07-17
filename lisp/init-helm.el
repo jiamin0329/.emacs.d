@@ -82,6 +82,7 @@
     (global-set-key (kbd "C-c h g") 'helm-google-suggest)
 
     (global-set-key (kbd "C-c h x") 'helm-register)
+    (global-set-key (kbd "M-x") 'helm-M-x)
     ;; (global-set-key (kbd "C-x r j") 'jump-to-register)
 
     (define-key 'help-command (kbd "C-f") 'helm-apropos)
@@ -137,7 +138,9 @@
       :init
       (helm-projectile-on)
       (setq projectile-completion-system 'helm)
-      (setq projectile-indexing-method 'alien))))
+      (setq projectile-indexing-method 'alien)
+      :bind
+      ("C-c p f" . helm-projectile-find-file))))
 
 
 ;; this variables must be set before load helm-gtags
