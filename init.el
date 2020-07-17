@@ -103,6 +103,8 @@
 (require 'init-cmode)
 ;; setup python mode
 (require 'init-pythonmode)
+;; setup magit
+(require 'init-magit)
 ;; setup key binding
 (require 'init-keybind)
 
