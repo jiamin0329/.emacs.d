@@ -1,4 +1,5 @@
-; company-c-headers
+(setq c-basic-offset 4 c-indent-level 4)
+;; company-c-headers
 (use-package company-c-headers
   :ensure t
   :init
@@ -75,8 +76,8 @@
 (add-hook 'c++-mode-hook 'cedet-hook)
 
 (setq company-backends (delete 'company-semantic company-backends))
-(define-key c-mode-map  [(tab)] 'company-complete)
-(define-key c++-mode-map  [(tab)] 'company-complete)
+;;(define-key c-mode-map  [(tab)] 'company-complete)
+;;(define-key c++-mode-map  [(tab)] 'company-complete)
 
 ;; Enable EDE only in C/C++
 (use-package ede
@@ -90,6 +91,13 @@
   :bind
   (("C-c i" . clang-format-region)
    ("C-c u" . clang-format-buffer)))
+
+(defun clang-hook ()
+  (local-set-key "tab" 'clang-format-region))
+
+(add-hook 'c-mode-common-hook 'clang-hook)
+(add-hook 'c-mode-hook 'clang-hook)
+(add-hook 'c++-mode-hook 'clang-hook)
 
 (setq clang-format-executable "/usr/local/bin/clang-format")
 (setq clang-format-fallback-style "llvm")

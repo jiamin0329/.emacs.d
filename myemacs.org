@@ -1,13 +1,13 @@
 * My Emacs
 
 ** Basic Requirement 
-   - [ ]General 
+   - [-]General[0%] 
      - [ ]theme
        - [X]gui mode
        - [ ]terminal mode
      - [X]modeline 
-   - [ ]C/C++ support
-     - [ ]auto-complete
+   - [-]C/C++ support[0%]
+     - [X]auto-complete
      - [X]goto header file
      - [X]goto definition
      - [X]goto declaration
@@ -15,6 +15,7 @@
      - [ ]cmake support
    - [ ]Python support
    - [ ]gdb support
+   - [ ]git support - magit
    - [ ]project management
    - [ ]latex support
    - [ ]org mode
@@ -34,12 +35,32 @@
 **** swiper
      use swiper to do the searching
 
+**** helm
+**** keyfreq     
+     Keyfreq is used to analyze key using statistics in emacs. 
 
+     Include the following lines in your .emacs file:
 
+(require 'keyfreq)
+(keyfreq-mode 1)
+(keyfreq-autosave-mode 1)
+And use keyfreq-show to see how many times you used a command.
+
+How to exclude commands?
+
+(setq keyfreq-excluded-commands
+      '(self-insert-command
+        forward-char
+        backward-char
+        previous-line
+        next-line))
+     
 
 *** C/C++ support
 ***** Semantic 
-      Now Semantic can search system include path and current path, but it still cannot access all includes in local project. So sometimes auto-complete cannot work. 
+     Now Semantic can search system include path and current path, but it still cannot access all includes in local project. So sometimes auto-complete cannot work. 
+     Project includes are added into cedet-user-include-dirs to make sure semantics can access all the project includes. 
+     
 ***** helm-gtags
       gtags works well. I can enjoy code navigation.
 
@@ -49,6 +70,8 @@
     Keybindings:(with C-c p prefix)
     C-c p f - helm-projectile-find-file-dwin
     
+
+
 ** Key Bindings
 
 | key | function                        |

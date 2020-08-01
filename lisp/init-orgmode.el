@@ -4,7 +4,7 @@
 (require 'org)
 (setq org-src-fontify-natively t)
 (setq org-src-block-faces '(("c++" (:background "#000000"))))
-
+(add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
 ;; set plantuml and active Org-babel languages
 (org-babel-do-load-languages 'org-babel-load-languages '((plantuml . t)))
 (setq org-plantuml-jar-path (expand-file-name "~/.emacs.d/plantuml.jar"))

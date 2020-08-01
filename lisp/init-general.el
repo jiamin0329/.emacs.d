@@ -79,4 +79,20 @@
 ;;  :init
 ;;  (counsel-projectile-mode))
 
+;; keyfreq to analyze the key using situation
+(use-package keyfreq
+  :ensure t)
+
+(keyfreq-mode 1)
+(keyfreq-autosave-mode 1)
+(setq keyfreq-excluded-commands '(self-insert-command
+                                  forward-char
+                                  backward-char
+                                  previous-line
+                                  next-line
+                                  org-self-insert-command
+                                  org-delete-backward-char
+                                  org-return
+                                  mwheel-scroll))
+
 (provide 'init-general)
