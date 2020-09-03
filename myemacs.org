@@ -38,24 +38,21 @@
 **** helm
 **** keyfreq     
      Keyfreq is used to analyze key using statistics in emacs. 
-
      Include the following lines in your .emacs file:
-
+#+BEGIN_SRC 
 (require 'keyfreq)
 (keyfreq-mode 1)
 (keyfreq-autosave-mode 1)
-And use keyfreq-show to see how many times you used a command.
 
-How to exclude commands?
-
+;;How to exclude commands?
 (setq keyfreq-excluded-commands
       '(self-insert-command
         forward-char
         backward-char
         previous-line
         next-line))
+#+END_SRC
      
-
 *** C/C++ support
 ***** Semantic 
      Now Semantic can search system include path and current path, but it still cannot access all includes in local project. So sometimes auto-complete cannot work. 
@@ -70,6 +67,61 @@ How to exclude commands?
     Keybindings:(with C-c p prefix)
     C-c p f - helm-projectile-find-file-dwin
     
+*** magit
+
+*** lsp mode - Language Server Protocal Support for Emacs
+lsp mode = lsp client in editor + language server
+
+
+
+**** Installation
+
+***** lsp mode
+For vanilla Emacs - go minimal and use lsp-mode without external packages
+
+
+packages:
+eglot
+emacs-ccls
+
+
+
+#+BEGIN_SRC lisp
+;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
+(setq lsp-keymap-prefix "s-l")
+
+(use-package lsp-mode
+    :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
+           (XXX-mode . lsp)
+           ;; if you want which-key integration
+           (lsp-mode . lsp-enable-which-key-integration))
+    :commands lsp)
+
+;; optionally
+(use-package lsp-ui 
+    :commands lsp-ui-mode)
+;; if you are helm user
+(use-package helm-lsp 
+    :commands helm-lsp-workspace-symbol)
+;; if you are ivy user
+(use-package lsp-ivy 
+    :commands lsp-ivy-workspace-symbol)
+(use-package lsp-treemacs 
+    :commands lsp-treemacs-errors-list)
+
+;; optionally if you want to use debugger
+(use-package dap-mode)
+;; (use-package dap-LANGUAGE) to load the dap adapter for your language
+
+;; optional if you want which-key integration
+(use-package which-key
+    :config
+    (which-key-mode))
+
+#+END_SRC
+
+
+
 
 
 ** Key Bindings

@@ -32,12 +32,12 @@
 ;;    (select-window win0)
 ;;    ))
 ;;
-(add-hook 'gdb-mode-hook
-          (lambda ()
-            (gud-tooltip-mode);;minor mode当鼠标放到变量上后，会弹出tooltip来显示变量的值
-            (local-set-key [f11] 'gud-step);;进入函数
-            (local-set-key [f10] 'gud-next);;不进入函数,到下一行
-            (local-set-key "S-[f11]" 'gud-finish);;跳出函数
-            (local-set-key [f5] 'gud-until)));;继续执行
-
+;;(add-hook 'gdb-mode-hook
+;;          (lambda ()
+;;            (gud-tooltip-mode);;minor mode当鼠标放到变量上后，会弹出tooltip来显示变量的值
+;;            (local-set-key [f11] 'gud-step);;进入函数
+;;            (local-set-key [f10] 'gud-next);;不进入函数,到下一行
+;;            (local-set-key "S-[f11]" 'gud-finish);;跳出函数
+;;            (local-set-key [f5] 'gud-until)));;继续执行
+;;
 (provide 'init-gdb)

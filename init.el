@@ -93,46 +93,41 @@
 (require 'init-general)
 ;; setup org-mode
 (require 'init-orgmode)
-;; setup cmake mode
-(require 'init-cmake)
-;; setup company mode
-(require 'init-company)
+;; setup lsp-mode
+(require 'init-lspmode)
 ;; setup helm packages
 (require 'init-helm)
+;; setup yasnippet
+(require 'init-yasnippet)
+;; setup company mode
+(require 'init-company)
+;; setup cmake mode
+(require 'init-cmake)
 ;; setup c/c++ mode
 (require 'init-cmode)
 ;; setup python mode
 (require 'init-pythonmode)
 ;; setup magit
 (require 'init-magit)
-;; setup yasnippet
-;;(require 'init-yasnippet)
 ;; setup key binding
 (require 'init-keybind)
-(require 'init-gdb)
-(require 'lldb-gud)
 
+(use-package dap-mode
+  :ensure t)
 
-;; dap mode
 (dap-mode 1)
+;; The modes above are optional
 (dap-ui-mode 1)
+;; enables mouse hover support
 (dap-tooltip-mode 1)
+;; use tooltips for mouse hover
+;; if it is not enabled `dap-mode' will use the minibuffer.
 (tooltip-mode 1)
+;; displays floating panel with debug buttons
+;; requies emacs 26+
 (dap-ui-controls-mode 1)
 
-
 (require 'dap-gdb-lldb)
-
-
-
-
-
-
-
-
-
-
-
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
