@@ -9,6 +9,8 @@
 ;; enable ccls language server
 (setq lsp-clients-clangd-executable "/usr/local/Cellar/llvm/10.0.0_3/bin/clangd")
 
+(setq lsp-keymap-prefix "C-c l")
+
 (use-package company-lsp
   :commands company-lsp
   :custom

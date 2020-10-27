@@ -54,11 +54,13 @@
 #+END_SRC
      
 *** C/C++ support
-***** Semantic 
+***** clangd
+
+***** Semantic(retired)
      Now Semantic can search system include path and current path, but it still cannot access all includes in local project. So sometimes auto-complete cannot work. 
      Project includes are added into cedet-user-include-dirs to make sure semantics can access all the project includes. 
      
-***** helm-gtags
+***** helm-gtags(retired)
       gtags works well. I can enjoy code navigation.
 
 *** Projectile
@@ -140,6 +142,8 @@ emacs-ccls
 | F10 |                                 |
 | F11 |                                 |
 | F12 | load init.el                    |
+
+
 
 
 

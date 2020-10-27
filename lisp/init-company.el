@@ -4,9 +4,10 @@
   (company-transformers '(company-sort-by-backend-importance))
   (company-idle-delay 0)
   (company-echo-delay 0)
-  (company-minimum-prefix-length 1)
+  (company-minimum-prefix-length 3)
   (company-selection-wrap-around t)
-  (completion-ignore-case t)
+  (completion-ignore-case 0)
+  (company-dabbrev-downcase nil)
   :bind
   (("C-M-c" . company-complete))
   (:map company-active-map
