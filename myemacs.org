@@ -128,20 +128,36 @@ emacs-ccls
 
 ** Key Bindings
 
-| key | function                        |
-|-----+---------------------------------|
-| F1  | open init.el in .emacs.d folder |
-| F2  | open vterm in other window      |
-| F3  |                                 |
-| F4  |                                 |
-| F5  |                                 |
-| F6  |                                 |
-| F7  |                                 |
-| F8  |                                 |
-| F9  |                                 |
-| F10 |                                 |
-| F11 |                                 |
-| F12 | load init.el                    |
+   | key | function                        |
+   |-----+---------------------------------|
+   | F1  | open init.el in .emacs.d folder |
+   | F2  | open vterm in other window      |
+   | F3  |                                 |
+   | F4  |                                 |
+   | F5  |                                 |
+   | F6  |                                 |
+   | F7  |                                 |
+   | F8  |                                 |
+   | F9  |                                 |
+   | F10 |                                 |
+   | F11 |                                 |
+   | F12 | load init.el                    |
+   |-----+---------------------------------|
+
+
+** General key bindings for editing
+   | key     | function                       |
+   |---------+--------------------------------|
+   | C-x C-f | open or new a file             |
+   | C-x C-s | save                           |
+   | C-x C-w | save as                        |
+   |---------+--------------------------------|
+   | C-x h   | select all text                |
+   | C-a     | move to the begining of a line |
+   | C-e     | move to the end of a line      |
+   | C-k     | kill a line                    |
+   |         |                                |
+   |---------+--------------------------------|
 
 
 
