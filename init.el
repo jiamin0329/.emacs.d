@@ -9,7 +9,11 @@
 ;; set emacs title
 (setq frame-title-format "jiamin@%b")
 ;; set default directory
-(setq default-directory "~/workdir")
+(if (eq system-type 'darwin) 
+    (setq default-directory "~/workdir"))
+(if (eq system-type 'windows-nt) 
+    (setq default-directory "C:\\Users\\o0tpuw"))
+
 ;; set auto-save directory
 (setq auto-save-list-file-prefix "~/.emacs.d/var/auto-save-list/.saves-")
 ;; hide scroll bar
@@ -82,10 +86,10 @@
 ;;===========================================================
 (add-to-list 'load-path "~/.emacs.d/lisp")
 
-;; import env path from shell
-(require 'exec-path-from-shell)
-(when (memq window-system '(mac ns x))
-  (exec-path-from-shell-initialize))
+;;;; import env path from shell
+;;(require 'exec-path-from-shell)
+;;(when (memq window-system '(mac ns x))
+;;  (exec-path-from-shell-initialize))
 
 ;; setup for use-package
 (require 'init-package)
@@ -135,16 +139,13 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   (quote
-    ("e1ef2d5b8091f4953fe17b4ca3dd143d476c106e221d92ded38614266cea3c8b" "d74c5485d42ca4b7f3092e50db687600d0e16006d8fa335c69cf4f379dbd0eee" "2a749c20af891c16571527d07976bbcf2bf31819fa7d322942b73386019f4d58" "9efb2d10bfb38fe7cd4586afb3e644d082cbcdb7435f3d1e8dd9413cbe5e61fc" default)))
+   '("e1ef2d5b8091f4953fe17b4ca3dd143d476c106e221d92ded38614266cea3c8b" "d74c5485d42ca4b7f3092e50db687600d0e16006d8fa335c69cf4f379dbd0eee" "2a749c20af891c16571527d07976bbcf2bf31819fa7d322942b73386019f4d58" "9efb2d10bfb38fe7cd4586afb3e644d082cbcdb7435f3d1e8dd9413cbe5e61fc" default))
  '(package-selected-packages
-   (quote
-    (dap-mode elpy clang-format company-c-headers helm-gtags helm-projectile helm-swoop helm cmake-ide htmlize counsel-projectile projectile swiper smartparens info-colors doom-modeline doom-themes ace-window use-package)))
- '(powerline-default-separator (quote curve))
+   '(dap-mode elpy clang-format company-c-headers helm-gtags helm-projectile helm-swoop helm cmake-ide htmlize counsel-projectile projectile swiper smartparens info-colors doom-modeline doom-themes ace-window use-package))
+ '(powerline-default-separator 'curve)
  '(powerline-gui-use-vcs-glyph t)
  '(safe-local-variable-values
-   (quote
-    ((company-clang-arguments "-I~/Desktop/ATHENA/src/" "-I~/Desktop/ATHENA/src/cfd/" "-I~/Desktop/ATHENA/src/common/" "-I~/Desktop/ATHENA/src/geometry/" "-I~/Desktop/ATHENA/src/material/" "-I~/Desktop/ATHENA/src/template/" "-I~/Desktop/ATHENA/src/utilities/" "-I~/Desktop/ATHENA/src/testsuite/" "-I~/Desktop/ATHENA/src/boost/boost/")))))
+   '((company-clang-arguments "-I~/Desktop/ATHENA/src/" "-I~/Desktop/ATHENA/src/cfd/" "-I~/Desktop/ATHENA/src/common/" "-I~/Desktop/ATHENA/src/geometry/" "-I~/Desktop/ATHENA/src/material/" "-I~/Desktop/ATHENA/src/template/" "-I~/Desktop/ATHENA/src/utilities/" "-I~/Desktop/ATHENA/src/testsuite/" "-I~/Desktop/ATHENA/src/boost/boost/"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

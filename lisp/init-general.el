@@ -79,9 +79,9 @@
 ;;  :init
 ;;  (counsel-projectile-mode))
 
-
-(use-package vterm
-  :ensure t)
+(if (eq system-type 'darwin) 
+    (use-package vterm
+      :ensure t))
 
 ;; keyfreq to analyze the key using situation
 (use-package keyfreq

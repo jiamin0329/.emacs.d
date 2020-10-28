@@ -14,7 +14,9 @@
 (global-set-key (kbd "<f1>") 'open-init-file)
 (global-set-key (kbd "<f12>") 'load-init-file)
 ;; set F2 to open shell mode
-(global-set-key (kbd "<f2>") 'vterm)
+;; set F2 to open shell mode
+(if (eq system-type 'darwin)
+    (global-set-key (kbd "<f2>") 'vterm))
 
 ;; create a new line
 (global-set-key (kbd "RET") 'newline-and-indent)
