@@ -57,8 +57,8 @@
 ***** clangd
 
 ***** Semantic(retired)
-     Now Semantic can search system include path and current path, but it still cannot access all includes in local project. So sometimes auto-complete cannot work. 
-     Project includes are added into cedet-user-include-dirs to make sure semantics can access all the project includes. 
+      Now Semantic can search system include path and current path, but it still cannot access all includes in local project. So sometimes auto-complete cannot work. 
+      Project includes are added into cedet-user-include-dirs to make sure semantics can access all the project includes. 
      
 ***** helm-gtags(retired)
       gtags works well. I can enjoy code navigation.
@@ -122,6 +122,9 @@ emacs-ccls
 
 #+END_SRC
 
+***** Dap mode
+
+
 
 
 
@@ -158,6 +161,14 @@ emacs-ccls
    | C-k     | kill a line                    |
    |         |                                |
    |---------+--------------------------------|
+
+** Code navigation
+    | key   | function   |
+    |-------+------------|
+    | M-g g | go to line |
+    |       |            |
+    |       |            |
+    |       |            |
 
 
 

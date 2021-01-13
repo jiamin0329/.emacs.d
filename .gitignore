@@ -3,3 +3,11 @@
 #*
 *#
 
+.DS_Store
+.~
+elpa/*
+eshell/*
+projectile-bookmarks.eld
+transient/*
+url/*
+

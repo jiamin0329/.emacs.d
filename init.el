@@ -9,9 +9,10 @@
 ;; set emacs title
 (setq frame-title-format "jiamin@%b")
 ;; set default directory
-(if (eq system-type 'darwin) 
+(if (or (eq system-type 'darwin)
+        (eq system-type 'gnu/linux))
     (setq default-directory "~/workdir"))
-(if (eq system-type 'windows-nt) 
+(if (eq system-type 'windows-nt)
     (setq default-directory "C:\\Users\\o0tpuw"))
 
 ;; set auto-save directory
@@ -43,24 +44,11 @@
 ;; inhibit tab key and set tab-width to 4
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
-
 ;; show unncessary whitespace that can mess up your diff
 (add-hook 'prog-mode-hook
           (lambda ()
 			(interactive)
             (setq show-trailing-whitespace 0)))
-
-;;recursivly adding directories to load-path
-;;(defun add-subdirs-to-load-path(dir)
-;;  "Recursive add directories to `load-path`."
-;;  (let ((default-directory (file-name-as-directory dir)))
-;;    (add-to-list 'load-path dir)
-;;    (normal-top-level-add-subdirs-to-load-path)))
-;;
-;;(let ((gc-cons-threshold most-positive-fixnum)
-;;      (file-name-handler-alist nil))
-;;  (add-subdirs-to-load-path "~/.emacs.d"))
-
 ;; use utf-8 everywhere
 (set-charset-priority 'unicode)
 (setq locale-coding-system   'utf-8)
@@ -69,28 +57,26 @@
 (set-selection-coding-system 'utf-8)
 (prefer-coding-system        'utf-8)
 (setq default-process-coding-system '(utf-8-unix . utf-8-unix))
-
+;; show emacs init time
 (add-hook 'emacs-startup-hook 
           (lambda () 
             (message "Emacs ready in %s with %d garbage collections." 
                      (format "%.2f seconds" (float-time (time-subtract after-init-time before-init-time))) gcs-done)))
-
+;; define garbage collection threshold
 (setq gc-cons-threshold (* 50 1000 1000))
-
 ;; set transparency of window
 (set-frame-parameter (selected-frame) 'alpha (list 95 50))
-
+;; show if it is emacs mode
 (if (display-graphic-p)
     (message "emacs launches in graphical mode.")
   (message "emacs launches in terminal mode."))
 ;;===========================================================
+;; add emacs loading path
 (add-to-list 'load-path "~/.emacs.d/lisp")
-
-;;;; import env path from shell
-;;(require 'exec-path-from-shell)
-;;(when (memq window-system '(mac ns x))
-;;  (exec-path-from-shell-initialize))
-
+;; import env path from shell
+(require 'exec-path-from-shell)
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize))
 ;; setup for use-package
 (require 'init-package)
 ;; setup general packages
@@ -99,6 +85,8 @@
 (require 'init-orgmode)
 ;; setup lsp-mode
 (require 'init-lspmode)
+;; setup dap-mode
+(require 'init-dapmode)
 ;; setup helm packages
 (require 'init-helm)
 ;; setup yasnippet
@@ -115,23 +103,6 @@
 (require 'init-magit)
 ;; setup key binding
 (require 'init-keybind)
-
-(use-package dap-mode
-  :ensure t)
-
-(dap-mode 1)
-;; The modes above are optional
-(dap-ui-mode 1)
-;; enables mouse hover support
-(dap-tooltip-mode 1)
-;; use tooltips for mouse hover
-;; if it is not enabled `dap-mode' will use the minibuffer.
-(tooltip-mode 1)
-;; displays floating panel with debug buttons
-;; requies emacs 26+
-(dap-ui-controls-mode 1)
-
-(require 'dap-gdb-lldb)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -156,3 +127,4 @@
  '(powerline-active0 ((t (:inherit mode-line :background "purple3"))))
  '(powerline-active1 ((t (:inherit mode-line :background "gray50"))))
  '(powerline-active2 ((t (:inherit mode-line :background "purple1")))))
+(put 'downcase-region 'disabled nil)

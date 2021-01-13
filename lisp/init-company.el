@@ -4,7 +4,7 @@
   (company-transformers '(company-sort-by-backend-importance))
   (company-idle-delay 0)
   (company-echo-delay 0)
-  (company-minimum-prefix-length 3)
+  (company-minimum-prefix-length 2)
   (company-selection-wrap-around t)
   (completion-ignore-case 0)
   (company-dabbrev-downcase nil)
@@ -37,8 +37,5 @@
       (append (if (consp backend) backend (list backend))
               '(:with company-yasnippet))))
   (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends)))
-
-(add-hook 'c++-mode-hook 'global-company-mode)
-(add-hook 'c-mode-hook 'global-company-mode)
 
 (provide 'init-company)

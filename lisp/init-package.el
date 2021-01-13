@@ -2,7 +2,7 @@
 ;; handle packages
 ;;========================================================================
 (package-initialize) ;; You might already have this line
-
+;; setup local sources
 (setq package-archives '(("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
                          ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
 
@@ -11,3 +11,4 @@
   (package-install 'use-package))
 
 (provide 'init-package)
+

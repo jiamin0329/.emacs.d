@@ -1,16 +1,17 @@
 (use-package lsp-mode
   :hook ((c++-mode . lsp)
          (c-mode . lsp)
+         (python-mode . lsp)
          (lsp-mode . lsp-enable-which-key-integration))
   :commands lsp
   :config
-  (setq lsp-clients-clangd-args '("-j=4" "-background-index" "-log=error")))
-
-;; enable ccls language server
+  (setq lsp-clients-clangd-args '("-j=4" "-background-index" "-log=error"))
+  (setq lsp-diagnostics-provider :none))
+;; enable clangd language server
 (setq lsp-clients-clangd-executable "/usr/local/Cellar/llvm/10.0.0_3/bin/clangd")
-
+;; prefix key for lsp commands
 (setq lsp-keymap-prefix "C-c l")
-
+;; lsp company settings
 (use-package company-lsp
   :commands company-lsp
   :custom
@@ -40,11 +41,11 @@
   ;; lsp-ui-flycheck
   (lsp-ui-flycheck-enable t)
   ;; lsp-ui-sideline
-  (lsp-ui-sideline-enable t)
+  (lsp-ui-sideline-enable nil)
   (lsp-ui-sideline-ignore-duplicate t)
   (lsp-ui-sideline-show-symbol t)
   (lsp-ui-sideline-show-hover t)
-  (lsp-ui-sideline-show-diagnostics t)
+  (lsp-ui-sideline-show-diagnostics nil)
   (lsp-ui-sideline-show-code-actions t)
   ;; lsp-ui-imenu
   (lsp-ui-imenu-enable nil)

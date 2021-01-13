@@ -5,15 +5,7 @@
 (use-package doom-themes
   :ensure t
   :config (load-theme 'doom-dracula t))
-
-;; modeline style
-;;(use-package doom-modeline
-;;  :ensure t
-;;  :init (doom-modeline-mode 1)
-;;  :config
-;;  (setq doom-modeline-height 5)
-;;  (setq mode-line-percent-position t))
-
+;; setup modeline
 (use-package powerline
   :ensure t
   :init
@@ -31,7 +23,6 @@
    ;;'(powerline-inactive1 ((t (:inherit mode-line-inactive :background "blue2"))))
    ;;'(powerline-inactive2 ((t (:inherit mode-line-inactive :background "blue1"))))
    ))
-
 ;; ace window package
 (use-package ace-window
   :ensure t
@@ -41,17 +32,14 @@
     (custom-set-faces
      '(aw-leading-char-face
        ((t (:inherit ace-jump-face-foreground :height 6.0 :foreground "magenta")))))))
-
 ;; info color package
 (use-package info-colors
   :ensure t
   :hook ('info-selection-hook . 'info-colors-fontify-node))
-
 ;; smart parens
 (use-package smartparens
   :ensure t
   :hook ('prog-mode . 'smartparens-global-mode))
-
 ;; use swiper to enhance seraching ability
 (use-package swiper
   :ensure t
@@ -65,28 +53,24 @@
     (setq ivy-use-virtual-buffers t)
     (setq ivy-display-style 'fancy)
     (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)))
-
 ;; use projejctile package
 (use-package projectile
   :ensure t
   :init
   (projectile-global-mode)
   (setq projectile-enable-caching t))
-
 ;; use consel projectile mode
 ;;(use-package counsel-projectile
 ;;  :ensure t
 ;;  :init
 ;;  (counsel-projectile-mode))
-
-(if (eq system-type 'darwin) 
+;; use vterm in OS
+(if (eq system-type 'darwin)
     (use-package vterm
       :ensure t))
-
 ;; keyfreq to analyze the key using situation
 (use-package keyfreq
   :ensure t)
-
 (keyfreq-mode 1)
 (keyfreq-autosave-mode 1)
 (setq keyfreq-excluded-commands '(self-insert-command
@@ -97,6 +81,8 @@
                                   org-self-insert-command
                                   org-delete-backward-char
                                   org-return
-                                  mwheel-scroll))
-
+                                  mwheel-scroll
+                                  dap-tooltip-mouse-motion
+                                  gud-tooltip-mouse-motion))
+;; provide general settings
 (provide 'init-general)
