@@ -1,4 +1,5 @@
 (use-package dap-mode
+  :ensure t
   :custom
   (dap-lldb-debug-program `("/Users/xujiamin/.emacs.d/lanza.lldb-vscode-0.2.2/bin/darwin/bin/lldb-vscode"))
   :config
