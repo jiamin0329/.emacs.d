@@ -83,6 +83,7 @@
 (require 'init-general)
 ;; setup org-mode
 (require 'init-orgmode)
+(require 'init-markdown)
 ;; setup lsp-mode
 (require 'init-lspmode)
 ;; setup dap-mode
