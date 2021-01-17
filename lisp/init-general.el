@@ -5,6 +5,10 @@
 (use-package doom-themes
   :ensure t
   :config (load-theme 'doom-dracula t))
+;;for terminal mode, change the background color
+;;(add-to-list 'default-frame-alist '(background-color . "#102372"))
+(custom-set-faces
+ '(font-lock-comment-face ((t (:foreground "ForestGreen"))) t))
 ;; setup modeline
 (use-package powerline
   :ensure t
