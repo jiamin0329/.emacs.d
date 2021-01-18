@@ -17,7 +17,8 @@
 ;; set F2 to open shell mode
 (if (eq system-type 'darwin)
     (global-set-key (kbd "<f2>") 'vterm))
-
+(if (eq system-type 'windows-nt)
+    (global-set-key (kbd "<f2>") 'eshell))
 ;; create a new line
 (global-set-key (kbd "RET") 'newline-and-indent)
 (global-set-key (kbd "S-<return>") 'comment-indent-new-line)
