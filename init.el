@@ -12,9 +12,6 @@
 (if (or (eq system-type 'darwin)
         (eq system-type 'gnu/linux))
     (setq default-directory "~/workdir"))
-(if (eq system-type 'windows-nt)
-    (setq default-directory "C:\\Users\\o0tpuw"))
-
 ;; set auto-save directory
 (setq auto-save-list-file-prefix "~/.emacs.d/var/auto-save-list/.saves-")
 ;; hide scroll bar
@@ -33,7 +30,7 @@
 (setq-default cursor-type 'box)
 ;; activate auto revert mode
 (global-auto-revert-mode 1)
-;; do Not remove startup message
+;; remove startup message or not
 (setq inhibit-startup-message t)
 ;; highlight current line
 (global-hl-line-mode 1)
@@ -41,6 +38,8 @@
 (setq column-number-mode t)
 (setq line-number-mode t)
 (global-linum-mode t)
+;; do not create backup file
+(setq make-backup-files nil)
 ;; inhibit tab key and set tab-width to 4
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
@@ -58,10 +57,10 @@
 (prefer-coding-system        'utf-8)
 (setq default-process-coding-system '(utf-8-unix . utf-8-unix))
 ;; show emacs init time
-(add-hook 'emacs-startup-hook 
-          (lambda () 
-            (message "Emacs ready in %s with %d garbage collections." 
-                     (format "%.2f seconds" (float-time (time-subtract after-init-time before-init-time))) gcs-done)))
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (message "Emacs ready in %s with %d garbage collections."
+                     (format "%.2f seconds" (float-time (time-subtract after-init-time before-init-time))) gcs-done)))
 ;; define garbage collection threshold
 (setq gc-cons-threshold (* 50 1000 1000))
 ;; set transparency of window
@@ -73,62 +72,130 @@
 ;;===========================================================
 ;; add emacs loading path
 (add-to-list 'load-path "~/.emacs.d/lisp")
-;; import env path from shell
-(require 'exec-path-from-shell)
-(when (memq window-system '(mac ns x))
-  (exec-path-from-shell-initialize))
 ;; setup for use-package
 (require 'init-package)
 ;; setup general packages
 (require 'init-general)
 ;; setup org-mode
 (require 'init-orgmode)
+;; setup markdown-mode
 (require 'init-markdown)
 ;; setup lsp-mode
-(require 'init-lspmode)
-;; setup dap-mode
-(require 'init-dapmode)
-;; setup helm packages
-(require 'init-helm)
-;; setup yasnippet
-(require 'init-yasnippet)
+(require 'init-programming)
 ;; setup company mode
 (require 'init-company)
-;; setup cmake mode
-(require 'init-cmake)
-;; setup c/c++ mode
-(require 'init-cmode)
-;; setup python mode
-(require 'init-pythonmode)
-;; setup magit
-(require 'init-magit)
 ;; setup key binding
 (require 'init-keybind)
+
+;; to fix svg bug in v28.2
+;; overriding image.el function image-type-available-p
+(defun image-type-available-p (type)
+  "Return t if image type TYPE is available.
+   Image types are symbols like `xbm' or `jpeg'."
+  (if (eq 'svg type)
+      nil
+    (and (fboundp 'init-image-library)
+         (init-image-library type))))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   (quote
-    ("37144b437478e4c235824f0e94afa740ee2c7d16952e69ac3c5ed4352209eefb" "7a994c16aa550678846e82edc8c9d6a7d39cc6564baaaacc305a3fdc0bd8725f" "e1ef2d5b8091f4953fe17b4ca3dd143d476c106e221d92ded38614266cea3c8b" "d74c5485d42ca4b7f3092e50db687600d0e16006d8fa335c69cf4f379dbd0eee" "2a749c20af891c16571527d07976bbcf2bf31819fa7d322942b73386019f4d58" "9efb2d10bfb38fe7cd4586afb3e644d082cbcdb7435f3d1e8dd9413cbe5e61fc" default)))
+ '(company-semantic-insert-arguments nil)
+ '(format-all-default-formatters
+   '(("Assembly" asmfmt)
+     ("ATS" atsfmt)
+     ("Bazel" buildifier)
+     ("BibTeX" emacs-bibtex)
+     ("C" clang-format)
+     ("C#" clang-format)
+     ("C++" clang-format)
+     ("Cabal Config" cabal-fmt)
+     ("Clojure" zprint)
+     ("CMake" cmake-format)
+     ("Crystal" crystal)
+     ("CSS" prettier)
+     ("Cuda" clang-format)
+     ("D" dfmt)
+     ("Dart" dart-format)
+     ("Dhall" dhall)
+     ("Dockerfile" dockfmt)
+     ("Elixir" mix-format)
+     ("Elm" elm-format)
+     ("Emacs Lisp" emacs-lisp)
+     ("Erlang" efmt)
+     ("F#" fantomas)
+     ("Fish" fish-indent)
+     ("Fortran Free Form" fprettify)
+     ("GLSL" clang-format)
+     ("Go" gofmt)
+     ("GraphQL" prettier)
+     ("Haskell" brittany)
+     ("HTML" prettier)
+     ("HTML+EEX" mix-format)
+     ("HTML+ERB" erb-format)
+     ("Java" clang-format)
+     ("JavaScript" prettier)
+     ("JSON" prettier)
+     ("JSON5" prettier)
+     ("Jsonnet" jsonnetfmt)
+     ("JSX" prettier)
+     ("Kotlin" ktlint)
+     ("LaTeX" latexindent)
+     ("Less" prettier)
+     ("Literate Haskell" brittany)
+     ("Lua" lua-fmt)
+     ("Markdown" prettier)
+     ("Nix" nixpkgs-fmt)
+     ("Objective-C" clang-format)
+     ("OCaml" ocp-indent)
+     ("Perl" perltidy)
+     ("PHP" prettier)
+     ("Protocol Buffer" clang-format)
+     ("PureScript" purty)
+     ("Python" black)
+     ("R" styler)
+     ("Reason" bsrefmt)
+     ("ReScript" rescript)
+     ("Ruby" rufo)
+     ("Rust" rustfmt)
+     ("Scala" scalafmt)
+     ("SCSS" prettier)
+     ("Shell" shfmt)
+     ("Solidity" prettier)
+     ("SQL" sqlformat)
+     ("Svelte" prettier)
+     ("Swift" swiftformat)
+     ("Terraform" terraform-fmt)
+     ("TOML" prettier)
+     ("TSX" prettier)
+     ("TypeScript" prettier)
+     ("V" v-fmt)
+     ("Verilog" istyle-verilog)
+     ("Vue" prettier)
+     ("XML" html-tidy)
+     ("YAML" prettier)
+     ("Zig" zig)
+     ("_Angular" prettier)
+     ("_Caddyfile" caddy-fmt)
+     ("_Flow" prettier)
+     ("_Gleam" gleam)
+     ("_Ledger" ledger-mode)
+     ("_Nginx" nginxfmt)
+     ("_Snakemake" snakefmt)))
  '(package-selected-packages
-   (quote
-    (dap-mode elpy clang-format company-c-headers helm-gtags helm-projectile helm-swoop helm cmake-ide htmlize counsel-projectile projectile swiper smartparens info-colors doom-modeline doom-themes ace-window use-package)))
- '(powerline-default-separator (quote curve))
- '(powerline-gui-use-vcs-glyph t)
+   '(cmake-font-lock yasnippet web-mode vue-mode vterm use-package swiper smartparens python-mode prettier-js powerline plantuml-mode pandoc-mode pandoc neotree markdown-preview-mode magit lsp-ui keyfreq json-mode js2-mode info-colors htmlize helm-swoop helm-projectile golden-ratio format-all exec-path-from-shell dracula-theme doom-themes dap-mode company-c-headers cmake-mode cmake-ide clang-format))
  '(safe-local-variable-values
-   (quote
-    ((company-clang-arguments "-I~/Desktop/ATHENA/src/" "-I~/Desktop/ATHENA/src/cfd/" "-I~/Desktop/ATHENA/src/common/" "-I~/Desktop/ATHENA/src/geometry/" "-I~/Desktop/ATHENA/src/material/" "-I~/Desktop/ATHENA/src/template/" "-I~/Desktop/ATHENA/src/utilities/" "-I~/Desktop/ATHENA/src/testsuite/" "-I~/Desktop/ATHENA/src/boost/boost/")))))
+   '((eval setq-local company-c-headers-path-system
+           (add-to-list 'company-c-headers-path-system "/opt/homebrew/include/opencascade"))))
+ '(warning-suppress-log-types '(((flymake flymake)) ((flymake flymake))))
+ '(warning-suppress-types '(((flymake flymake)))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(aw-leading-char-face ((t (:inherit ace-jump-face-foreground :height 6.0 :foreground "magenta"))))
- '(mode-line ((t (:foreground "green" :background "purple" :box nil))))
- '(powerline-active0 ((t (:inherit mode-line :background "purple3"))))
- '(powerline-active1 ((t (:inherit mode-line :background "gray50"))))
- '(powerline-active2 ((t (:inherit mode-line :background "purple1")))))
-(put 'downcase-region 'disabled nil)
+ '(lsp-headerline-breadcrumb-path-face ((t (:inherit font-lock-string-face :foreground "gray100"))))
+ '(lsp-headerline-breadcrumb-symbols-face ((t (:inherit font-lock-doc-face :foreground "gray100" :weight bold)))))
+(put 'set-goal-column 'disabled nil)

@@ -5,37 +5,49 @@
 (use-package doom-themes
   :ensure t
   :config (load-theme 'doom-dracula t))
-;;for terminal mode, change the background color
-;;(add-to-list 'default-frame-alist '(background-color . "#102372"))
-(custom-set-faces
- '(font-lock-comment-face ((t (:foreground "ForestGreen"))) t))
+;; setup comment font and color
+(set-face-attribute 'font-lock-comment-face nil :foreground "ForestGreen")
 ;; setup modeline
 (use-package powerline
   :ensure t
   :init
   (powerline-default-theme)
   :config
-  (custom-set-variables
-   '(powerline-default-separator (quote curve)))
-  (custom-set-faces
-   '(mode-line ((t (:foreground "green" :background "purple" :box nil))))
-   ;;'(mode-line-inactive ((t (:foreground "dark green"   :background "blue"   :box nil))))
-   '(powerline-active0 ((t (:inherit mode-line :background "purple3"))))
-   '(powerline-active1 ((t (:inherit mode-line :background "gray50"))))
-   '(powerline-active2 ((t (:inherit mode-line :background "purple1"))))
-   ;;'(powerline-inactive0 ((t (:inherit mode-line-inactive :background "blue3"))))
-   ;;'(powerline-inactive1 ((t (:inherit mode-line-inactive :background "blue2"))))
-   ;;'(powerline-inactive2 ((t (:inherit mode-line-inactive :background "blue1"))))
-   ))
+  (setq powerline-default-separator (quote curve))
+  (set-face-attribute 'mode-line nil
+                      :foreground "#FFFFFF"
+                      :background "#FF0066"
+                      :box nil)
+  (set-face-attribute 'mode-line-inactive nil
+                      :foreground "#FFFFFF"
+                      :background "#FF0066"
+                      :box nil)
+  (set-face-attribute 'powerline-active0 nil
+                      :foreground "#FFFFFF"
+                      :background "#5000B8")
+  (set-face-attribute 'powerline-active1 nil
+                      :foreground "#28FF28"
+                      :background "#7B7B7B")
+  (set-face-attribute 'powerline-active2 nil
+                      :foreground "#FFFFFF"
+                      :background "#5000B8"))
+;; setup gloden ratio when start a new window
+;;(use-package golden-ratio
+;;  :ensure t
+;;  :config
+;;  (setq golden-ratio-adjust-factor 1.04)
+;;  (golden-ratio-mode 1))
 ;; ace window package
 (use-package ace-window
   :ensure t
   :init
-  (progn
-    (global-set-key [remap other-window] 'ace-window)
-    (custom-set-faces
-     '(aw-leading-char-face
-       ((t (:inherit ace-jump-face-foreground :height 6.0 :foreground "magenta")))))))
+  (setq ace-window 1)
+  :config
+  (global-set-key (kbd "C-x o") 'ace-select-window)
+  (global-set-key (kbd "C-x p") 'ace-delete-window)
+  (set-face-attribute  'aw-leading-char-face nil
+                       :foreground "red"
+                       :height 3.0))
 ;; info color package
 (use-package info-colors
   :ensure t
@@ -48,45 +60,67 @@
 (use-package swiper
   :ensure t
   :bind
-  (("C-s" . swiper)
-   ("C-r" . swiper)
-   ("C-c C-r" . ivy-resume))
+  ("C-s" . swiper))
+;; use vterm in OS
+(use-package vterm
+  :ensure t
   :config
-  (progn
-    (ivy-mode 1)
-    (setq ivy-use-virtual-buffers t)
-    (setq ivy-display-style 'fancy)
-    (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)))
-;; use projejctile package
-(use-package projectile
+  (setq explicit-shell-file-name "/bin/zsh"))
+(use-package exec-path-from-shell
   :ensure t
   :init
-  (projectile-global-mode)
-  (setq projectile-enable-caching t))
-;; use consel projectile mode
-;;(use-package counsel-projectile
-;;  :ensure t
-;;  :init
-;;  (counsel-projectile-mode))
-;; use vterm in OS
-(if (eq system-type 'darwin)
-    (use-package vterm
-      :ensure t))
+  (exec-path-from-shell-initialize))
+;; setup neotree to navigate current note
+(use-package neotree
+  :ensure t
+  :init
+  ;;(setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+  (setq neo-smart-open t)
+  :config
+  (global-set-key (kbd "<f3>") 'neotree-toggle)
+  (define-key neotree-mode-map (kbd "<f5>") 'neotree-refresh)
+  (define-key neotree-mode-map (kbd "<f4>") 'neotree-hidden-file-toggle))
+;; recent file
+(use-package recentf
+  :ensure t
+  :config
+  (add-to-list 'recentf-exclude "\\elpa")
+  (add-to-list 'recentf-exclude "private/tmp")
+  (recentf-mode)
+  (global-set-key (kbd "C-x C-r") 'recentf-open-files))
 ;; keyfreq to analyze the key using situation
 (use-package keyfreq
-  :ensure t)
-(keyfreq-mode 1)
-(keyfreq-autosave-mode 1)
-(setq keyfreq-excluded-commands '(self-insert-command
-                                  forward-char
-                                  backward-char
-                                  previous-line
-                                  next-line
-                                  org-self-insert-command
-                                  org-delete-backward-char
-                                  org-return
-                                  mwheel-scroll
-                                  dap-tooltip-mouse-motion
-                                  gud-tooltip-mouse-motion))
+  :ensure t
+  :init
+  (keyfreq-mode 1)
+  (keyfreq-autosave-mode 1)
+  (setq keyfreq-excluded-commands '(self-insert-command
+                                    forward-char
+                                    backward-char
+                                    previous-line
+                                    next-line
+                                    org-self-insert-command
+                                    org-delete-backward-char
+                                    org-return
+                                    mwheel-scroll
+                                    dap-tooltip-mouse-motion
+                                    gud-tooltip-mouse-motion)))
+;; setup helm package
+(use-package helm
+  :ensure t
+  :init
+  (progn
+    (require 'helm-grep)
+    (helm-mode 1)
+    ;; setup help local keys
+    (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
+    (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action)
+    (define-key helm-map (kbd "C-z") 'helm-select-action)
+    ;; override global key binds
+    (global-set-key (kbd "C-x b") 'helm-buffers-list)
+    (global-set-key (kbd "C-x C-f") 'helm-find-files)
+    (global-set-key (kbd "M-x") 'helm-M-x)
+    ;; remap global key binds
+    (define-key global-map [remap find-tag] 'helm-etags-select)))
 ;; provide general settings
 (provide 'init-general)

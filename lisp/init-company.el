@@ -29,13 +29,11 @@
             (lambda (s1 s2)
               (and (string-match-p re s2)
                    (not (string-match-p re s1)))))))
-  (push 'my-sort-uppercase company-transformers)
-  (defvar company-mode/enable-yas t)
-  (defun company-mode/backend-with-yas (backend)
-    (if (or (not company-mode/enable-yas) (and (listp backend) (member 'company-yasnippet backend)))
-        backend
-      (append (if (consp backend) backend (list backend))
-              '(:with company-yasnippet))))
-  (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends)))
+  (push 'my-sort-uppercase company-transformers))
+
+(use-package company-c-headers
+  :ensure t
+  :config
+  (add-to-list 'company-backends 'company-c-headers))
 
 (provide 'init-company)

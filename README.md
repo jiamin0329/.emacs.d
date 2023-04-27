@@ -1,2 +1,2 @@
-# myemacs
-my emacs configuration
+# Emacs Configuration from Jiamin Xu
+

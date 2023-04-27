@@ -1,29 +1,39 @@
+#+TITLE: My Emacs Configuration
+#+SETUPFILE: ~/.emacs.d/setup.config
+
+
 * My Emacs
-
 ** Basic Requirement 
-   - [-]General[0%] 
-     - [ ]theme
-       - [X]gui mode
-       - [ ]terminal mode
-     - [X]modeline 
-   - [-]C/C++ support[0%]
-     - [X]auto-complete
-     - [X]goto header file
-     - [X]goto definition
-     - [X]goto declaration
-     - [X]clang-format support
-     - [ ]cmake support
-   - [ ]Python support
-   - [ ]gdb support
-   - [ ]git support - magit
-   - [ ]project management
-   - [ ]latex support
-   - [ ]org mode
-     - [ ]indent
-     - [ ]preview
-     - [X]plantuml
-     - [ ]fancy highlight of code blocks
-
+- [-]General[0%] 
+  - [-]theme
+    - [X]gui mode
+    - [X]terminal mode
+  - [X]modeline
+  - [X]helm
+- [-]C/C++ support[0%]
+  - [X]auto-complete
+  - [X]goto header file
+  - [X]goto definition
+  - [X]goto declaration
+  - [X]clang-format support
+  - [ ]cmake support
+- [ ]Python support
+- [ ]Javascript support
+  - [ ]code navigation
+  - [ ]syntax highlight
+  - [ ]auto complete
+- [ ]Vue support
+- [ ]html support  
+- [ ]gdb support
+- [ ]git support - magit
+- [ ]project management
+- [ ]latex support
+- [ ]org mode
+  - [ ]indent
+  - [ ]preview
+  - [X]plantuml
+  - [ ]fancy highlight of code blocks
+    
 *** General
 **** theme 
      GUI mode - using doom-themes
@@ -36,10 +46,13 @@
      use swiper to do the searching
 
 **** helm
+
+**** neotree
+
 **** keyfreq     
      Keyfreq is used to analyze key using statistics in emacs. 
      Include the following lines in your .emacs file:
-#+BEGIN_SRC 
+#+BEGIN_SRC elisp
 (require 'keyfreq)
 (keyfreq-mode 1)
 (keyfreq-autosave-mode 1)
@@ -52,9 +65,33 @@
         previous-line
         next-line))
 #+END_SRC
-     
+
+*** Programming modes
+
+**** LSP mode
+
+"LSP :: filename not in project or it is blacklisted.", to fix this, run lsp-workspace-blacklist-remove.
+
+
+
+*** Javascript support
+
+
+
 *** C/C++ support
 ***** clangd
+
+#+BEGIN_SRC cpp
+  #include "test.h"
+
+
+  int main(int argc, char* argv[])
+  {
+
+
+    return 0;
+  }
+#+END_SRC
 
 ***** Semantic(retired)
       Now Semantic can search system include path and current path, but it still cannot access all includes in local project. So sometimes auto-complete cannot work. 
@@ -135,7 +172,7 @@ emacs-ccls
    |-----+---------------------------------|
    | F1  | open init.el in .emacs.d folder |
    | F2  | open vterm in other window      |
-   | F3  |                                 |
+   | F3  | open neotree                    |
    | F4  |                                 |
    | F5  |                                 |
    | F6  |                                 |
