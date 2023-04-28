@@ -10,4 +10,7 @@ eshell/*
 projectile-bookmarks.eld
 transient/*
 url/*
-
+recentf
+.dap-breakpoints
+.lsp-session-v1
+./cache/*
