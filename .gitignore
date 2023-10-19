@@ -1,8 +1,6 @@
-
 *~
 #*
 *#
-
 .DS_Store
 .~
 elpa/*
@@ -13,4 +11,6 @@ url/*
 recentf
 .dap-breakpoints
 .lsp-session-v1
-./cache/*
+./cache
+
+.cache

@@ -1,3 +1,6 @@
+(use-package python-mode
+  :ensure t)
+
 ;; vue mode configuration
 (use-package vue-mode
   :ensure t
@@ -98,6 +101,7 @@
   (add-to-list 'format-all-formatters '("Vue" prettier))
   (add-to-list 'format-all-formatters '("XML" prettier))
   (add-to-list 'format-all-formatters '("YAML" prettier)))
+
 ;; For vue mode: vue2 ==> npm -g install vls
 ;;               vue3 ==> npm install -g @volar/vue-language-server
 ;; For JavaScript: npm i -g typescript-language-server; npm i -g typescript
