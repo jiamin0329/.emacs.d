@@ -19,7 +19,7 @@
 ;; hide tool bar
 (tool-bar-mode -1)
 ;; hide menu bar
-(menu-bar-mode -1)
+(menu-bar-mode t)
 ;; Yes-or-no-p to y-or-n-p
 (fset 'yes-or-no-p 'y-or-n-p)
 ;; highlight parentheses
@@ -82,8 +82,6 @@
 (require 'init-markdown)
 ;; setup lsp-mode
 (require 'init-programming)
-;; setup company mode
-(require 'init-company)
 ;; setup key binding
 (require 'init-keybind)
 

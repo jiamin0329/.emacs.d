@@ -1,5 +1,129 @@
-(use-package python-mode
+;;===========================================================
+;; Python support
+;;===========================================================
+(use-package anaconda-mode
   :ensure t)
+
+(use-package pyenv-mode
+  :ensure t)
+
+(use-package pyvenv
+  :ensure t
+  :init
+  (setenv "WORKON_HOME" "/Users/jiaminxu/anaconda3/envs")
+  (pyvenv-mode 1)
+  (pyvenv-tracking-mode 1))
+
+(use-package python-mode
+  :ensure t
+  :hook
+  (python-mode . lsp-deferred)
+  :config
+  ;;(setq python-shell-interpreter "/Users/jiaminxu/anaconda3/envs/engineering/bin/python")
+  (add-hook 'python-mode-hook #'lsp)
+  (add-hook 'python-mode-hook #'anaconda-mode)
+  (setq python-indent-offset 4)
+  (setq python-indent-guess-indent-offset 0)
+  (setq python-indent-guess-indent-offset-verbose 0))
+
+;;===========================================================
+;; Syntax highlight for languages
+;;===========================================================
+;; Package
+(use-package tree-sitter
+  :ensure t)
+
+(use-package tree-sitter-langs
+  :ensure t)
+
+;; Hook tree-sitter-hl-mode to replace the regex-based highlighting
+;; provided by font-lock-mode with tree-based syntax highlighting.
+(add-hook 'python-mode-hook #'tree-sitter-hl-mode)
+(add-hook 'c-mode-hook #'tree-sitter-hl-mode)
+(add-hook 'c++-mode-hook #'tree-sitter-hl-mode)
+
+;;===========================================================
+;; Language Server Protocal
+;;===========================================================
+;; For vue mode: vue2 ==> npm install -g vls
+;;               vue3 ==> npm install -g @volar/vue-language-server
+;; For JavaScript: npm i -g typescript-language-server; npm i -g typescript
+(use-package lsp-mode
+  :ensure t
+  :commands lsp
+  :hook
+  (js2-mode . lsp)
+  (typescript-mode . lsp)
+  (vue-mode . lsp)
+  (c-mode . lsp)
+  (c++-mode . lsp)
+  (python-mode . lsp)
+  :config
+  (setq lsp-clients-typescript-server-args '("--stdio"))
+  (setq lsp-clients-clangd-executable "/opt/homebrew/opt/llvm/bin/clangd")
+  ;;setup headerline
+  (setq lsp-headerline-breadcrumb-icons-enable nil)
+  (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
+  (setq lsp-enable-snippet nil))
+
+(use-package lsp-ui
+  :ensure t
+  :commands lsp-ui-mode
+  :init
+  (add-hook 'lsp-mode-hook 'lsp-ui-mode)
+  :bind (:map lsp-ui-mode-map
+              ("M-." . lsp-ui-peek-find-definitions)
+              ("M-/" . lsp-ui-peek-find-references))
+  :config
+  (setq lsp-ui-sideline-show-diagnostics t)
+  (setq lsp-ui-sideline-show-hover t)
+  (setq lsp-ui-sideline-show-code-actions t)
+  ;;(setq lsp-ui-sideline-update-mode 'line)
+  (setq lsp-ui-sideline-delay 0.2))
+
+;;===========================================================
+;; Company mode
+;;===========================================================
+(use-package company
+  :after lsp-mode
+  :hook (lsp-mode . company-mode)
+  :custom
+  (company-transformers '(company-sort-by-backend-importance))
+  (company-idle-delay 0)
+  (company-echo-delay 0)
+  (company-minimum-prefix-length 2)
+  (company-selection-wrap-around t)
+  (completion-ignore-case 0)
+  (company-dabbrev-downcase nil)
+  :bind
+  (("C-M-c" . company-complete))
+  (:map company-active-map
+        ("C-n" . company-select-next)
+        ("C-p" . company-select-previous)
+        ("C-s" . company-filter-candidates)
+        ("C-i" . company-complete-selection)
+        ([tab] . company-complete-selection))
+  (:map company-search-map
+        ("C-n" . company-select-next)
+        ("C-p" . company-select-previous))
+  :init
+  (global-company-mode t)
+  :config
+  (defun my-sort-uppercase (candidates)
+    (let (case-fold-search
+          (re "\\`[[:upper:]]*\\'"))
+      (sort candidates
+            (lambda (s1 s2)
+              (and (string-match-p re s2)
+                   (not (string-match-p re s1)))))))
+  (push 'my-sort-uppercase company-transformers))
+
+;; for c/c++
+(use-package company-c-headers
+  :ensure t
+  :config
+  (add-to-list 'company-backends 'company-c-headers))
+
 
 ;; vue mode configuration
 (use-package vue-mode
@@ -7,6 +131,7 @@
   :mode "\\.vue\\'"
   :config
   (add-hook 'vue-mode-hook #'lsp))
+
 ;; javascript mode configuration
 (use-package js2-mode
   :ensure t
@@ -24,6 +149,7 @@
   (advice-add #'js2-identifier-start-p
               :after-until
               (lambda (c) (eq c ?#))))
+
 ;; web mode configuration
 (use-package web-mode
   :ensure t
@@ -101,40 +227,5 @@
   (add-to-list 'format-all-formatters '("Vue" prettier))
   (add-to-list 'format-all-formatters '("XML" prettier))
   (add-to-list 'format-all-formatters '("YAML" prettier)))
-
-;; For vue mode: vue2 ==> npm -g install vls
-;;               vue3 ==> npm install -g @volar/vue-language-server
-;; For JavaScript: npm i -g typescript-language-server; npm i -g typescript
-(use-package lsp-mode
-  :ensure t
-  :commands lsp
-  :hook
-  (js2-mode . lsp)
-  (typescript-mode . lsp)
-  (vue-mode . lsp)
-  (c-mode . lsp)
-  (c++-mode . lsp)
-  :config
-  (setq lsp-clients-typescript-server-args '("--stdio"))
-  (setq lsp-clients-clangd-executable "/opt/homebrew/opt/llvm/bin/clangd")
-  ;;setup headerline
-  (setq lsp-headerline-breadcrumb-icons-enable nil)
-  (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
-  (setq lsp-enable-snippet nil))
-
-(use-package lsp-ui
-  :ensure t
-  :commands lsp-ui-mode
-  :init
-  (add-hook 'lsp-mode-hook 'lsp-ui-mode)
-  :bind (:map lsp-ui-mode-map
-              ("M-." . lsp-ui-peek-find-definitions)
-              ("M-/" . lsp-ui-peek-find-references))
-  :config
-  (setq lsp-ui-sideline-show-diagnostics t)
-  (setq lsp-ui-sideline-show-hover t)
-  (setq lsp-ui-sideline-show-code-actions t)
-  ;;(setq lsp-ui-sideline-update-mode 'line)
-  (setq lsp-ui-sideline-delay 0.2))
 
 (provide 'init-programming)
