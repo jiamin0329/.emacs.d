@@ -188,7 +188,7 @@
    '((eval setq-local company-c-headers-path-system
            (add-to-list 'company-c-headers-path-system "/opt/homebrew/include/opencascade"))))
  '(warning-suppress-log-types '(((flymake flymake)) ((flymake flymake))))
- '(warning-suppress-types '(((flymake flymake)))))
+ '(warning-suppress-types '(((flymake flymake)) ((flymake flymake)))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

@@ -45,6 +45,7 @@
   :config
   (global-set-key (kbd "C-x o") 'ace-select-window)
   (global-set-key (kbd "C-x p") 'ace-delete-window)
+  (global-set-key (kbd "C-x p") 'ace-previous-window)
   (set-face-attribute  'aw-leading-char-face nil
                        :foreground "red"
                        :height 3.0))
@@ -122,5 +123,15 @@
     (global-set-key (kbd "M-x") 'helm-M-x)
     ;; remap global key binds
     (define-key global-map [remap find-tag] 'helm-etags-select)))
+
+
+(defvar hs-special-modes-alist
+  (mapcar 'purecopy
+  '((c-mode "{" "}" "/[*/]" nil nil)
+    (c++-mode "{" "}" "/[*/]" nil nil)
+    (bibtex-mode ("@\\S(*\\(\\s(\\)" 1))
+    (java-mode "{" "}" "/[*/]" nil nil)
+    (js-mode "{" "}" "/[*/]" nil))))
+
 ;; provide general settings
 (provide 'init-general)
