@@ -14,10 +14,13 @@
     (setq default-directory "~/workdir"))
 ;; set auto-save directory
 (setq auto-save-list-file-prefix "~/.emacs.d/var/auto-save-list/.saves-")
-;; hide scroll bar
-(scroll-bar-mode -1)
+;; hide scroll bars
+(if (display-graphic-p)
+    (scroll-bar-mode -1))
+
 ;; hide tool bar
-(tool-bar-mode -1)
+(if (display-graphic-p)
+    (tool-bar-mode -1))
 ;; hide menu bar
 (menu-bar-mode t)
 ;; Yes-or-no-p to y-or-n-p
@@ -37,7 +40,8 @@
 ;; turn on line number and column number
 (setq column-number-mode t)
 (setq line-number-mode t)
-(global-linum-mode t)
+(if (display-graphic-p)
+    (global-linum-mode t))
 ;; do not create backup file
 (setq make-backup-files nil)
 ;; inhibit tab key and set tab-width to 4

@@ -45,7 +45,6 @@
   :config
   (global-set-key (kbd "C-x o") 'ace-select-window)
   (global-set-key (kbd "C-x p") 'ace-delete-window)
-  (global-set-key (kbd "C-x p") 'ace-previous-window)
   (set-face-attribute  'aw-leading-char-face nil
                        :foreground "red"
                        :height 3.0))
@@ -63,10 +62,10 @@
   :bind
   ("C-s" . swiper))
 ;; use vterm in OS
-(use-package vterm
-  :ensure t
-  :config
-  (setq explicit-shell-file-name "/bin/zsh"))
+;;(use-package vterm
+;;  :ensure t
+;;  :config
+;;  (setq explicit-shell-file-name "/bin/zsh"))
 (use-package exec-path-from-shell
   :ensure t
   :init
@@ -107,22 +106,23 @@
                                     dap-tooltip-mouse-motion
                                     gud-tooltip-mouse-motion)))
 ;; setup helm package
-(use-package helm
-  :ensure t
-  :init
-  (progn
-    (require 'helm-grep)
-    (helm-mode 1)
-    ;; setup help local keys
-    (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
-    (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action)
-    (define-key helm-map (kbd "C-z") 'helm-select-action)
-    ;; override global key binds
-    (global-set-key (kbd "C-x b") 'helm-buffers-list)
-    (global-set-key (kbd "C-x C-f") 'helm-find-files)
-    (global-set-key (kbd "M-x") 'helm-M-x)
-    ;; remap global key binds
-    (define-key global-map [remap find-tag] 'helm-etags-select)))
+;;(if (display-graphic-p)
+    (use-package helm
+      :ensure t
+      :init
+      (progn
+;;        (require 'helm-grep)
+        (helm-mode 1)
+        ;; setup help local keys
+        (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
+        (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action)
+        (define-key helm-map (kbd "C-z") 'helm-select-action)
+        ;; override global key binds
+        (global-set-key (kbd "C-x b") 'helm-buffers-list)
+        (global-set-key (kbd "C-x C-f") 'helm-find-files)
+        (global-set-key (kbd "M-x") 'helm-M-x)
+        ;; remap global key binds
+        (define-key global-map [remap find-tag] 'helm-etags-select)))
 
 
 (defvar hs-special-modes-alist

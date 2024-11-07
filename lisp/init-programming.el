@@ -30,11 +30,11 @@
 ;; Syntax highlight for languages
 ;;===========================================================
 ;; Package
-(use-package tree-sitter
-  :ensure t)
-
-(use-package tree-sitter-langs
-  :ensure t)
+;;(use-package tree-sitter
+;;  :ensure t)
+;;
+;;(use-package tree-sitter-langs
+;;  :ensure t)
 
 ;; Hook tree-sitter-hl-mode to replace the regex-based highlighting
 ;; provided by font-lock-mode with tree-based syntax highlighting.
