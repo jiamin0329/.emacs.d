@@ -44,7 +44,7 @@
   (setq ace-window 1)
   :config
   (global-set-key (kbd "C-x o") 'ace-select-window)
-  (global-set-key (kbd "C-x p") 'ace-delete-window)
+  (global-set-key (kbd "C-x i") 'ace-delete-window)
   (set-face-attribute  'aw-leading-char-face nil
                        :foreground "red"
                        :height 3.0))
@@ -62,10 +62,11 @@
   :bind
   ("C-s" . swiper))
 ;; use vterm in OS
-;;(use-package vterm
-;;  :ensure t
-;;  :config
-;;  (setq explicit-shell-file-name "/bin/zsh"))
+(use-package vterm
+  :ensure t
+  :config
+  (setq explicit-shell-file-name "/bin/zsh"))
+
 (use-package exec-path-from-shell
   :ensure t
   :init
