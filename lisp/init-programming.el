@@ -194,7 +194,6 @@
 (use-package format-all
   :ensure t
   :bind
-  ;;("<tab>" . format-all-region)
   ("C-c i" . format-all-region)
   :config
   (add-hook 'prog-mode-hook #'format-all-ensure-formatter)
