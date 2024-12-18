@@ -15,7 +15,7 @@
 ;; set auto-save directory
 (setq auto-save-list-file-prefix "~/.emacs.d/var/auto-save-list/.saves-")
 ;; hide scroll bars
-(scroll-bar-mode -1)
+(scroll-bar-mode 1)
 ;; hide tool bar
 (tool-bar-mode -1)
 ;; hide menu bar
@@ -38,6 +38,7 @@
 (setq column-number-mode t)
 (setq line-number-mode t)
 (setq global-linum-mode t)
+(global-display-line-numbers-mode)
 ;; do not create backup file
 (setq make-backup-files nil)
 ;; inhibit tab key and set tab-width to 4
@@ -188,7 +189,10 @@
    '((eval setq-local company-c-headers-path-system
            (add-to-list 'company-c-headers-path-system "/opt/homebrew/include/opencascade"))))
  '(warning-suppress-log-types '(((flymake flymake)) ((flymake flymake))))
- '(warning-suppress-types '(((flymake flymake)) ((flymake flymake)))))
+ '(warning-suppress-types
+   '(((flymake flymake))
+     ((flymake flymake))
+     ((flymake flymake)))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

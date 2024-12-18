@@ -1,48 +1,4 @@
 ;;===========================================================
-;; Python support
-;;===========================================================
-(use-package anaconda-mode
-  :ensure t)
-
-(use-package pyenv-mode
-  :ensure t)
-
-(use-package pyvenv
-  :ensure t
-  :init
-  (setenv "WORKON_HOME" "/Users/jiaminxu/anaconda3/envs")
-  (pyvenv-mode 1)
-  (pyvenv-tracking-mode 1))
-
-(use-package python-mode
-  :ensure t
-  :hook
-  (python-mode . lsp-deferred)
-  :config
-  ;;(setq python-shell-interpreter "/Users/jiaminxu/anaconda3/envs/engineering/bin/python")
-  (add-hook 'python-mode-hook #'lsp)
-  (add-hook 'python-mode-hook #'anaconda-mode)
-  (setq python-indent-offset 4)
-  (setq python-indent-guess-indent-offset 0)
-  (setq python-indent-guess-indent-offset-verbose 0))
-
-;;===========================================================
-;; Syntax highlight for languages
-;;===========================================================
-;; Package
-;;(use-package tree-sitter
-;;  :ensure t)
-;;
-;;(use-package tree-sitter-langs
-;;  :ensure t)
-
-;; Hook tree-sitter-hl-mode to replace the regex-based highlighting
-;; provided by font-lock-mode with tree-based syntax highlighting.
-(add-hook 'python-mode-hook #'tree-sitter-hl-mode)
-(add-hook 'c-mode-hook #'tree-sitter-hl-mode)
-(add-hook 'c++-mode-hook #'tree-sitter-hl-mode)
-
-;;===========================================================
 ;; Language Server Protocal
 ;;===========================================================
 ;; For vue mode: vue2 ==> npm install -g vls
@@ -52,19 +8,20 @@
   :ensure t
   :commands lsp
   :hook
-  (js2-mode . lsp)
-  (typescript-mode . lsp)
-  (vue-mode . lsp)
+  ;;(js2-mode . lsp)
+  ;;(typescript-mode . lsp)
+  ;;(vue-mode . lsp)
   (c-mode . lsp)
   (c++-mode . lsp)
   (python-mode . lsp)
   :config
-  (setq lsp-clients-typescript-server-args '("--stdio"))
+  ;;(setq lsp-clients-typescript-server-args '("--stdio"))
   (setq lsp-clients-clangd-executable "/opt/homebrew/opt/llvm/bin/clangd")
   ;;setup headerline
-  (setq lsp-headerline-breadcrumb-icons-enable nil)
-  (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
-  (setq lsp-enable-snippet nil))
+  ;;(setq lsp-headerline-breadcrumb-icons-enable nil)
+  ;;(setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
+  ;;(setq lsp-enable-snippet nil)
+  )
 
 (use-package lsp-ui
   :ensure t
@@ -81,12 +38,15 @@
   ;;(setq lsp-ui-sideline-update-mode 'line)
   (setq lsp-ui-sideline-delay 0.2))
 
+
 ;;===========================================================
 ;; Company mode
 ;;===========================================================
 (use-package company
   :after lsp-mode
-  :hook (lsp-mode . company-mode)
+  :hook
+  (lsp-mode . company-mode)
+  (python-mode . company-mode)
   :custom
   (company-transformers '(company-sort-by-backend-importance))
   (company-idle-delay 0)
@@ -118,63 +78,116 @@
                    (not (string-match-p re s1)))))))
   (push 'my-sort-uppercase company-transformers))
 
+;;===========================================================
+;; hs-minor-mode keybindings
+;;===========================================================
+(global-set-key (kbd "C-c @ C-t") 'hs-mouse-toggle-hiding)  ;; Toggle hiding for the current block
+(global-set-key (kbd "C-c @ C-a") 'hs-hide-all)     ;; Hide all code blocks
+(global-set-key (kbd "C-c @ C-e") 'hs-show-all)     ;; Show all code blocks
+
+;;===========================================================
+;; Python support
+;;===========================================================
+(use-package pyvenv
+  :ensure t
+  :init
+  (setenv "WORKON_HOME" "/Users/jiaminxu/anaconda3/envs")
+  (pyvenv-mode 1)
+  (pyvenv-tracking-mode 1))
+
+(use-package python-mode
+  :ensure t
+  :hook
+  (python-mode . lsp-deferred)
+  (python-mode . hs-minor-mode)
+  :config
+  ;;(setq python-shell-interpreter "/Users/jiaminxu/anaconda3/envs/engineering/bin/python")
+  ;;(add-hook 'python-mode-hook #'lsp)
+  (setq python-indent-offset 4)
+  (setq python-indent-guess-indent-offset 0)
+  (setq python-indent-guess-indent-offset-verbose 0))
+
+(use-package flymake
+  :ensure t
+  :hook (python-mode . flymake-mode)  ;; Enable Flymake for Python mode
+  :config
+  ;; Keybindings for navigating errors
+  (global-set-key (kbd "M-n") 'flymake-goto-next-error)
+  (global-set-key (kbd "M-p") 'flymake-goto-prev-error))
+
+;;===========================================================
+;; Syntax highlight for languages
+;;===========================================================
+;; Package
+(use-package tree-sitter
+  :ensure t)
+
+(use-package tree-sitter-langs
+  :ensure t)
+
+;; Hook tree-sitter-hl-mode to replace the regex-based highlighting
+;; provided by font-lock-mode with tree-based syntax highlighting.
+(add-hook 'python-mode-hook #'tree-sitter-hl-mode)
+(add-hook 'c-mode-hook #'tree-sitter-hl-mode)
+(add-hook 'c++-mode-hook #'tree-sitter-hl-mode)
+
+
 ;; for c/c++
 (use-package company-c-headers
   :ensure t
   :config
   (add-to-list 'company-backends 'company-c-headers))
 
-
-;; vue mode configuration
-(use-package vue-mode
-  :ensure t
-  :mode "\\.vue\\'"
-  :config
-  (add-hook 'vue-mode-hook #'lsp))
-
-;; javascript mode configuration
-(use-package js2-mode
-  :ensure t
-  :mode "\\.js\\'"
-  :config
-  ;;(js2-include-node-externs t)
-  ;;(js2-global-externs '("customElements"))
-  (setq js2-highlight-level 3)
-  (setq js2r-prefer-let-over-var t)
-  (setq js2r-prefered-quote-type 2)
-  (setq js-indent-align-list-continuation t)
-  (setq global-auto-highlight-symbol-mode t)
-  (setq js-indent-level 4)
-  ;; patch in basic private field support
-  (advice-add #'js2-identifier-start-p
-              :after-until
-              (lambda (c) (eq c ?#))))
-
-;; web mode configuration
-(use-package web-mode
-  :ensure t
-  :init
-  :config
-  (setq auto-mode-alist
-        (append
-         '(("\\.html?\\'" . web-mode)
-           ("\\.phtml\\'" . web-mode)
-           ("\\.tpl\\.php\\'" . web-mode)
-           ("\\.jsp\\'" . web-mode)
-           ("\\.as[cp]x\\'" . web-mode)
-           ("\\.erb\\'" . web-mode)
-           ("\\.mustache\\'" . web-mode)
-           ("\\.djhtml\\'" . web-mode))
-         auto-mode-alist))
-  (setq web-mode-markup-indent-offset 4)
-  (setq web-mode-code-indent-offset 4)
-  (setq web-mode-css-indent-offset 4)
-  (setq web-mode-enable-auto-pairing t)
-  (setq web-mode-enable-auto-quoting t)
-  (setq web-mode-enable-css-colorization t)
-  (setq web-mode-enable-current-element-highlight t)
-  (define-key web-mode-map (kbd "C-c C-f") 'web-mode-fold-or-unfold))
-;; json mode configuration
+;;;; vue mode configuration
+;;(use-package vue-mode
+;;  :ensure t
+;;  :mode "\\.vue\\'"
+;;  :config
+;;  (add-hook 'vue-mode-hook #'lsp))
+;;
+;;;; javascript mode configuration
+;;(use-package js2-mode
+;;  :ensure t
+;;  :mode "\\.js\\'"
+;;  :config
+;;  ;;(js2-include-node-externs t)
+;;  ;;(js2-global-externs '("customElements"))
+;;  (setq js2-highlight-level 3)
+;;  (setq js2r-prefer-let-over-var t)
+;;  (setq js2r-prefered-quote-type 2)
+;;  (setq js-indent-align-list-continuation t)
+;;  (setq global-auto-highlight-symbol-mode t)
+;;  (setq js-indent-level 4)
+;;  ;; patch in basic private field support
+;;  (advice-add #'js2-identifier-start-p
+;;              :after-until
+;;              (lambda (c) (eq c ?#))))
+;;
+;;;; web mode configuration
+;;(use-package web-mode
+;;  :ensure t
+;;  :init
+;;  :config
+;;  (setq auto-mode-alist
+;;        (append
+;;         '(("\\.html?\\'" . web-mode)
+;;           ("\\.phtml\\'" . web-mode)
+;;           ("\\.tpl\\.php\\'" . web-mode)
+;;           ("\\.jsp\\'" . web-mode)
+;;           ("\\.as[cp]x\\'" . web-mode)
+;;           ("\\.erb\\'" . web-mode)
+;;           ("\\.mustache\\'" . web-mode)
+;;           ("\\.djhtml\\'" . web-mode))
+;;         auto-mode-alist))
+;;  (setq web-mode-markup-indent-offset 4)
+;;  (setq web-mode-code-indent-offset 4)
+;;  (setq web-mode-css-indent-offset 4)
+;;  (setq web-mode-enable-auto-pairing t)
+;;  (setq web-mode-enable-auto-quoting t)
+;;  (setq web-mode-enable-css-colorization t)
+;;  (setq web-mode-enable-current-element-highlight t)
+;;  (define-key web-mode-map (kbd "C-c C-f") 'web-mode-fold-or-unfold))
+;;;; json mode configuration
 (use-package json-mode
   :ensure t
   :config
